@@ -60,9 +60,10 @@
     */
     Crafty.c("KeyReceiver", {
         _speed: 3,
-
+        _up: false,
       _rkeydown: function (key) {
-            if (this._keys[key]) {
+
+            if (this._keys[key] && !(key == 38 || key == 87 )) {
                 this._movement.x = Math.round((this._movement.x + this._keys[key].x) * 1000) / 1000;
                 this._movement.y = Math.round((this._movement.y + this._keys[key].y) * 1000) / 1000;
                 this.trigger('NewDirection', this._movement);
@@ -70,7 +71,7 @@
         },
 
       _rkeyup: function (key) {
-            if (this._keys[key]) {
+            if (this._keys[key] && !(key == 38 || key == 87 )) {
                 this._movement.x = Math.round((this._movement.x - this._keys[key].x) * 1000) / 1000;
                 this._movement.y = Math.round((this._movement.y - this._keys[key].y) * 1000) / 1000;
                 this.trigger('NewDirection', this._movement);
@@ -95,6 +96,7 @@
             this._keys = {};
             this._movement = { x: 0, y: 0 };
             this._speed = { x: 3, y: 3 };
+            this.requires('Keyboard')
         },
 
         /**@
@@ -106,7 +108,7 @@
         * this.multiway({W: -90, S: 90, D: 0, A: 180});
         * ~~~
         */
-        receiver: function (speed, keys) {
+        receiver: function (speed, keys, jump) {
             if (keys) {
                 if (speed.x && speed.y) {
                     this._speed.x = speed.x;
@@ -122,6 +124,21 @@
             this._keyDirection = keys;
             this.rspeed(this._speed);
             this.enableReceiverControl();
+
+            if (speed) this._speed = speed;
+            jump = jump || this._speed * 2;
+
+            this.bind("EnterFrame", function () {
+                if (this.disableControls) return;
+                if (this._up) {
+                    this.y -= jump;
+                    this._falling = true;
+                }
+            }).bind("KeyDownReceive", function (key) {
+                if ((key == 38 || key == 87 )){
+                    this._up = true;
+                } 
+            });
 
             return this;
         },

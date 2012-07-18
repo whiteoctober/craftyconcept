@@ -83,8 +83,10 @@
   
         if (self) {
             player1.sender(1, {
+                UP_ARROW: -90,
                 RIGHT_ARROW: 0,
                 LEFT_ARROW: 180,
+                W: -90,
                 D: 0,
                 A: 180,
                 Q: 180
@@ -97,7 +99,7 @@
             D: 0,
             A: 180,
             Q: 180
-        });
+        }, 6);
 
         if (!players.get(uuid)) {
             var player = message['info'];
