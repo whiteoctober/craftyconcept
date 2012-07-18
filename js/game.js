@@ -73,6 +73,10 @@
         if (self = (uuid == App.current_player.info.uuid)) {
             setup += ', KeySender';
         }
+        if(message.x != undefined && message.y != undefined) {
+            manPos.x = message.x;
+            manPos.y = message.y;
+        }
         var player1 = Crafty.e(setup)
                  .attr(manPos)
                  .Ape().gravity("platform");

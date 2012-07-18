@@ -185,7 +185,9 @@
                     'action' : 'player_keydown',
                     'info' : App.current_player.info,
                     'key' : e.key,
-                    'speed' : this._keys[e.key]
+                    'speed' : this._keys[e.key],
+                    'x': this.x,
+                    'y': this.y
                 });
             }
         },
@@ -196,7 +198,9 @@
                     'action' : 'player_keyup',
                     'info' : App.current_player.info,
                     'key' : e.key,
-                    'speed' : this._keys[e.key]
+                    'speed' : this._keys[e.key],
+                    'x': this.x,
+                    'y': this.y
                 });
             }
         },
