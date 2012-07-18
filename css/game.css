@@ -1,0 +1,10 @@
+#cr-stage {
+	position: absolute !important;
+	top:0;
+	left:0;
+}
+
+.container {
+	position: relative;
+	z-index: 1020;
+}
